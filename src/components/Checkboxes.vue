@@ -250,6 +250,7 @@ export default {
 .paragraph {
   margin: 0px 10px 0px 0px;
   padding: 0;
+  cursor: pointer;
 }
 .input-count {
   width: 30px;
