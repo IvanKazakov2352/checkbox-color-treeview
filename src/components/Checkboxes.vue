@@ -43,6 +43,7 @@
                 class="input-count"
                 type="text"
                 v-model.number="childItem.count"
+                @keyup.enter="childItem.isInputOpen = false"
               />
               <input
                 class="input-color"
