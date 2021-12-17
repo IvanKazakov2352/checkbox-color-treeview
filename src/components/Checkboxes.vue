@@ -196,8 +196,8 @@ export default {
     checkedChildItem(childItem, item) {
       childItem.checked = !childItem.checked;
       this.$emit("checkeds", this.items);
-      const test = item.childItems.filter((item) => item.checked === false);
-      if (test.length === item.childItems.length) {
+      const checkbox = item.childItems.filter((item) => item.checked === false);
+      if (checkbox.length === item.childItems.length) {
         item.checked = false;
       } else {
         item.checked = true;
