@@ -1,10 +1,10 @@
 <template>
   <div class="checkboxes-block">
     <ul class="checkbox-list">
-      <li class="checkbox-list__item" v-for="item in items" :key="item.id">
+      <li class="checkbox-list__item" v-for="item in array" :key="item.id">
         <span
           :class="item.isOpen ? 'mdi mdi-minus icon' : 'mdi mdi-plus icon'"
-          @click="item.isOpen = !item.isOpen"
+          @click="isOpenedCheckbox(item)"
         ></span>
         <input
           type="checkbox"
@@ -60,131 +60,14 @@
 <script>
 export default {
   data: () => ({
-    items: [
-      {
-        id: "1",
-        title: "List 1",
-        checked: false,
-        childItems: [
-          {
-            id: "1",
-            color: "#26F232",
-            title: "Item 1",
-            count: 10,
-            checked: false,
-            isInputOpen: false,
-          },
-          {
-            id: "2",
-            color: "#26FF67",
-            title: "Item 2",
-            count: 15,
-            checked: false,
-            isInputOpen: false,
-          },
-          {
-            id: "3",
-            color: "#234562",
-            title: "Item 3",
-            count: 40,
-            checked: false,
-            isInputOpen: false,
-          },
-          {
-            id: "4",
-            color: "#345344",
-            title: "Item 3",
-            count: 25,
-            checked: false,
-            isInputOpen: false,
-          },
-        ],
-        isOpen: false,
-      },
-      {
-        id: "2",
-        title: "List 2",
-        checked: false,
-        childItems: [
-          {
-            id: "1",
-            color: "#26F232",
-            title: "Item 1",
-            count: 10,
-            checked: false,
-            isInputOpen: false,
-          },
-          {
-            id: "2",
-            color: "#26FF67",
-            title: "Item 2",
-            count: 15,
-            checked: false,
-            isInputOpen: false,
-          },
-          {
-            id: "3",
-            color: "#234562",
-            title: "Item 3",
-            count: 40,
-            checked: false,
-            isInputOpen: false,
-          },
-          {
-            id: "4",
-            color: "#345344",
-            title: "Item 3",
-            count: 25,
-            checked: false,
-            isInputOpen: false,
-          },
-        ],
-        isOpen: false,
-      },
-      {
-        id: "3",
-        title: "List 3",
-        checked: false,
-        childItems: [
-          {
-            id: "1",
-            color: "#26F232",
-            title: "Item 1",
-            count: 10,
-            checked: false,
-            isInputOpen: false,
-          },
-          {
-            id: "2",
-            color: "#26FF67",
-            title: "Item 2",
-            count: 15,
-            checked: false,
-            isInputOpen: false,
-          },
-          {
-            id: "3",
-            color: "#234562",
-            title: "Item 3",
-            count: 40,
-            checked: false,
-            isInputOpen: false,
-          },
-          {
-            id: "4",
-            color: "#345344",
-            title: "Item 3",
-            count: 25,
-            checked: false,
-            isInputOpen: false,
-          },
-        ],
-        isOpen: false,
-      },
-    ],
     input: false,
+    array: [],
   }),
   methods: {
+    isOpenedCheckbox(item) {
+      item.isOpen = !item.isOpen;
+      console.log(item);
+    },
     checkedItem(item) {
       item.checked = !item.checked;
       if (item.checked) {
@@ -192,11 +75,11 @@ export default {
       } else {
         item.childItems.map((childItem) => (childItem.checked = false));
       }
-      this.$emit("checkeds", this.items);
+      this.$emit("checkeds", this.array);
     },
     checkedChildItem(childItem, item) {
       childItem.checked = !childItem.checked;
-      this.$emit("checkeds", this.items);
+      this.$emit("checkeds", this.array);
       const checkbox = item.childItems.filter((item) => item.checked === false);
       if (checkbox.length === item.childItems.length) {
         item.checked = false;
@@ -205,9 +88,42 @@ export default {
       }
     },
   },
+  computed: {
+    checkboxes() {
+      return array;
+    },
+  },
   mounted() {
-    this.$emit("checkeds", this.items);
-  }
+    let array = [];
+    let counterID = 1;
+    let couterTitle = 1;
+    let counterChildItemID = 1;
+    let counterChildItemTitle = 1;
+    const colors = ["#26F232", "#26FF67", "#234562", "#345344"];
+    for (let i = 0; i < 3; i++) {
+      array.push({
+        id: `${counterID++}`,
+        title: `List ${couterTitle++}`,
+        checked: false,
+        isOpen: false,
+        childItems: [],
+      });
+    }
+    array.forEach((item) => {
+      for (let j = 0; j < 3; j++) {
+        item.childItems.push({
+          id: `${counterChildItemID++}`,
+          color: `${colors[Math.floor(Math.random() * colors.length)]}`,
+          title: `Item ${counterChildItemTitle++}`,
+          count: Math.floor(Math.random() * 30),
+          checked: false,
+          isInputOpen: false,
+        });
+      }
+    });
+    this.array = array
+    this.$emit("checkeds", this.array);
+  },
 };
 </script>
 <style scoped>
