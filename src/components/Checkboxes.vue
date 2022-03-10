@@ -66,7 +66,6 @@ export default {
   methods: {
     isOpenedCheckbox(item) {
       item.isOpen = !item.isOpen;
-      console.log(item);
     },
     checkedItem(item) {
       item.checked = !item.checked;
@@ -86,11 +85,6 @@ export default {
       } else {
         item.checked = true;
       }
-    },
-  },
-  computed: {
-    checkboxes() {
-      return array;
     },
   },
   mounted() {
