@@ -61,6 +61,10 @@
 export default {
   data: () => ({
     input: false,
+    // countItems - количество Листов
+    countItems: 3,
+    // countItems - количество дочерних элементов в каждом листе
+    countChildItems: 3,
     array: [],
   }),
   methods: {
@@ -93,8 +97,8 @@ export default {
     let couterTitle = 1;
     let counterChildItemID = 1;
     let counterChildItemTitle = 1;
-    const colors = ["#26F232", "#26FF67", "#234562", "#345344"];
-    for (let i = 0; i < 3; i++) {
+    const colors = ["#26F232", "#26FF67", "#234562", "#345344", "#22F232", "#26FG67", "#226562", "#378344"];
+    for (let i = 0; i < this.countItems; i++) {
       array.push({
         id: `${counterID++}`,
         title: `List ${couterTitle++}`,
@@ -104,7 +108,7 @@ export default {
       });
     }
     array.forEach((item) => {
-      for (let j = 0; j < 3; j++) {
+      for (let j = 0; j < this.countChildItems; j++) {
         item.childItems.push({
           id: `${counterChildItemID++}`,
           color: `${colors[Math.floor(Math.random() * colors.length)]}`,
