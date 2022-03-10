@@ -64,8 +64,13 @@ export default {
     // countItems - количество Листов
     countItems: 3,
     // countItems - количество дочерних элементов в каждом листе
-    countChildItems: 3,
+    countChildItems: 5,
     array: [],
+    colors: ["#26F232", "#26FF67", "#234562", "#345344", "#B22222", "#FF1493", "#FF4500", "#FFA500", "#FF00FF", "#9932CC"],
+    counterID: 1,
+    couterTitle: 1,
+    counterChildItemID: 1,
+    counterChildItemTitle: 1,
   }),
   methods: {
     isOpenedCheckbox(item) {
@@ -93,15 +98,10 @@ export default {
   },
   mounted() {
     let array = [];
-    let counterID = 1;
-    let couterTitle = 1;
-    let counterChildItemID = 1;
-    let counterChildItemTitle = 1;
-    const colors = ["#26F232", "#26FF67", "#234562", "#345344", "#22F232", "#26FG67", "#226562", "#378344"];
     for (let i = 0; i < this.countItems; i++) {
       array.push({
-        id: `${counterID++}`,
-        title: `List ${couterTitle++}`,
+        id: `${this.counterID++}`,
+        title: `List ${this.couterTitle++}`,
         checked: false,
         isOpen: false,
         childItems: [],
@@ -110,9 +110,9 @@ export default {
     array.forEach((item) => {
       for (let j = 0; j < this.countChildItems; j++) {
         item.childItems.push({
-          id: `${counterChildItemID++}`,
-          color: `${colors[Math.floor(Math.random() * colors.length)]}`,
-          title: `Item ${counterChildItemTitle++}`,
+          id: `${this.counterChildItemID++}`,
+          color: `${this.colors[Math.floor(Math.random() * this.colors.length)]}`,
+          title: `Item ${this.counterChildItemTitle++}`,
           count: Math.floor(Math.random() * 30),
           checked: false,
           isInputOpen: false,
